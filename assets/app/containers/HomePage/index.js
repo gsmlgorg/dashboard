@@ -48,9 +48,6 @@ class HomePage extends React.PureComponent { // eslint-disable-line react/prefer
   componentDidUpdate() {
     this.mainPanel.scrollTop = 0;
   }
-  getRoute() {
-    return this.props.location.pathname !== '/maps';
-  }
   handleDrawerToggle = () => {
     this.setState({ mobileOpen: !this.state.mobileOpen });
   };
@@ -74,15 +71,10 @@ class HomePage extends React.PureComponent { // eslint-disable-line react/prefer
             handleDrawerToggle={this.handleDrawerToggle}
             {...rest}
           />
-          {/* On the /maps route we want the map to be on full screen - this is not possible if the content and conatiner classes are present because they have some paddings which would make the map smaller */}
-          {this.getRoute() ? (
-            <div className={classes.content}>
-              <div className={classes.container}>{switchRoutes}</div>
-            </div>
-          ) : (
-            <div className={classes.map}>{switchRoutes}</div>
-          )}
-          {this.getRoute() ? <Footer /> : null}
+          <div className={classes.content}>
+            <div className={classes.container}>{switchRoutes}</div>
+          </div>
+          <Footer />
         </div>
       </div>
     );
