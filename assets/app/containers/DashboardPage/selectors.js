@@ -20,6 +20,4 @@ const makeSelectDashboardPage = () => createSelector(
 );
 
 export default makeSelectDashboardPage;
-export {
-  selectDashboardPageDomain,
-};
+export { selectDashboardPageDomain };
