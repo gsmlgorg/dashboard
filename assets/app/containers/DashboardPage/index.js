@@ -61,7 +61,6 @@ import { fetchDashboard } from './actions';
 
 
 export class DashboardPage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
-
   componentWillMount() {
     const { doFetch } = this.props;
     doFetch();
