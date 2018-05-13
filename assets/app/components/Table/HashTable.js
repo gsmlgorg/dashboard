@@ -12,7 +12,7 @@ import PropTypes from 'prop-types';
 
 import tableStyle from 'jss/dashboard/tableStyle';
 
-function CustomTable({ ...props }) {
+function HashTable({ ...props }) {
   const {
     classes, tableHead, tableData, tableHeaderColor,
   } = props;
@@ -34,11 +34,11 @@ function CustomTable({ ...props }) {
           </TableHead>
         ) : null}
         <TableBody>
-          {tableData.map((prop, key) => (
+          {tableData && tableData.map((prop, key) => (
             <TableRow key={key}>
-              {prop.map((cellProp, k) => (
-                <TableCell className={classes.tableCell} key={cellProp}>
-                  {cellProp}
+              {tableHead.map((titleKey) => (
+                <TableCell className={classes.tableCell} key={titleKey}>
+                  {prop.get(titleKey)}
                 </TableCell>
               ))}
             </TableRow>
@@ -49,11 +49,11 @@ function CustomTable({ ...props }) {
   );
 }
 
-CustomTable.defaultProps = {
+HashTable.defaultProps = {
   tableHeaderColor: 'gray',
 };
 
-CustomTable.propTypes = {
+HashTable.propTypes = {
   classes: PropTypes.object.isRequired,
   tableHeaderColor: PropTypes.oneOf([
     'warning',
@@ -64,8 +64,6 @@ CustomTable.propTypes = {
     'rose',
     'gray',
   ]),
-  tableHead: PropTypes.arrayOf(PropTypes.string),
-  tableData: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.string)),
 };
 
-export default withStyles(tableStyle)(CustomTable);
+export default withStyles(tableStyle)(HashTable);

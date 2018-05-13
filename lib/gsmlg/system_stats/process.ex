@@ -5,7 +5,7 @@ defmodule Gsmlg.SystemStats.Process do
   def current do
     System.put_env("LANG", "en_US.UTF-8")
     {out, code} = System.cmd("ps", ["aux"])
-    if code != 0, do: System.exit(code)
+    # if code != 0, do: System.exit(code)
     [head | list] = out |> String.trim |> String.split("\n")
     processes = list |> Enum.map(fn(proc) ->
       case proc |> String.split do

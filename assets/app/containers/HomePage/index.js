@@ -66,11 +66,6 @@ class HomePage extends React.PureComponent { // eslint-disable-line react/prefer
           {...rest}
         />
         <div className={classes.mainPanel} ref={(el) => { this.mainPanel = el; }}>
-          <Header
-            routes={dashboardRoutes}
-            handleDrawerToggle={this.handleDrawerToggle}
-            {...rest}
-          />
           <div className={classes.content}>
             <div className={classes.container}>{switchRoutes}</div>
           </div>

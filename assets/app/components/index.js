@@ -58,6 +58,7 @@ import SnackbarContent from './Snackbar/SnackbarContent';
 // #############################
 
 import Table from './Table/Table';
+import HashTable from './Table/HashTable';
 
 // ##############################
 // // // Tasks
@@ -106,6 +107,7 @@ export {
   SnackbarContent,
   // Table
   Table,
+  HashTable,
   // Tasks
   Tasks,
   // Typography

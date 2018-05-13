@@ -24,7 +24,8 @@ defmodule GsmlgWeb.Router do
   scope "/api", GsmlgWeb do
     pipe_through :api
 
-    resources "/processes", ProcessController
+    get "/processes", ProcessController, :index
+    get "/dashboard", DashboardController, :index
   end
 
   scope "/", GsmlgWeb do
