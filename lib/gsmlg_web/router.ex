@@ -26,6 +26,8 @@ defmodule GsmlgWeb.Router do
 
     get "/processes", ProcessController, :index
     get "/dashboard", DashboardController, :index
+    get "/web_build", WebBuildController, :index
+    post "/web_build/upload", WebBuildController, :upload
   end
 
   scope "/", GsmlgWeb do

@@ -1,4 +1,5 @@
 import DashboardPage from 'containers/DashboardPage/Loadable';
+import WebBuildPage from 'containers/WebBuildPage/Loadable';
 import NotificationsPage from 'views/Notifications/Notifications';
 
 import {
@@ -18,6 +19,13 @@ const dashboardRoutes = [
     navbarName: 'Dashboard',
     icon: Dashboard,
     component: DashboardPage,
+  },
+  {
+    path: '/web_build',
+    sidebarName: 'Web Build',
+    navbarName: 'Web Build',
+    icon: LibraryBooks,
+    component: WebBuildPage,
   },
   {
     path: '/notifications',
