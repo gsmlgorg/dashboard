@@ -23,6 +23,7 @@ defmodule GsmlgWeb.Endpoint do
 
   plug Plug.Parsers,
     parsers: [:urlencoded, :multipart, :json],
+    length: 100_000_000,
     pass: ["*/*"],
     json_decoder: Poison
 
