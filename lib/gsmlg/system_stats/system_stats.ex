@@ -31,9 +31,17 @@ defmodule Gsmlg.SystemStats do
   end
 
   def boot_time do
-    {out, code} = System.cmd("sysctl", ["-n", "kern.boottime"])
-    [ _, _, _, sec, _, _, _, usec | _] = String.split(out, [" ", ","])
-    String.to_integer(sec) + (String.to_integer(usec) / 1000000)
+    {out1, code1} = System.cmd("sysctl", ["-n", "kern.boottime"])
+    {out2, code2} = System.cmd("cat", ["/proc/uptime"])
+    case 0 do
+      ^code1 = _ ->
+        [ _, _, _, sec, _, _, _, usec | _] = String.split(out, [" ", ","])
+        String.to_integer(sec) + (String.to_integer(usec) / 1000000)
+      ^code2 = _ ->
+        now = DateTime.utc_now |> DateTime.to_unix
+        [running_time | _ ] = String.split(out2)
+        now - running_time
+    end
   end
 
 end
