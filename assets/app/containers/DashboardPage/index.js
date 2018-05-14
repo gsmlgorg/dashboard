@@ -133,8 +133,8 @@ const withReducer = injectReducer({ key: 'dashboardPage', reducer });
 const withSaga = injectSaga({ key: 'dashboardPage', saga });
 
 export default compose(
-  withReducer,
-  withSaga,
-  withConnect,
   withStyles(dashboardStyle),
+  withConnect,
+  withSaga,
+  withReducer,
 )(DashboardPage);

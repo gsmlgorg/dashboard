@@ -10,6 +10,7 @@ import { connect } from 'react-redux';
 import { Helmet } from 'react-helmet';
 import { createStructuredSelector } from 'reselect';
 import { bindActionCreators, compose } from 'redux';
+import moment from 'moment';
 
 import {
   ContentCopy,
@@ -44,12 +45,23 @@ import dashboardStyle from 'jss/dashboard/dashboardStyle';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
-import makeSelectWebBuildPage from './selectors';
 import reducer from './reducer';
 import saga from './saga';
+import { makeSelectWebBuild } from './selectors';
+import { fetchWebBuild } from './actions';
 
 export class WebBuildPage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
+  componentWillMount() {
+    this.props.fetchBuild();
+  }
+
   render() {
+    const { builds } = this.props;
+    const head = ['hash', 'user', 'branch', 'commit', 'created_at'];
+    const data = builds && builds.sortBy((b) => b.get('created_at')).map((b) => (
+      b.set('created_at', moment.unix(b.get('created_at')).toISOString())
+        .set('commit', b.get('commit').slice(7))
+    )).reverse();
     return (
       <div>
         <Helmet>
@@ -61,12 +73,12 @@ export class WebBuildPage extends React.PureComponent { // eslint-disable-line r
             <RegularCard
               headerColor="orange"
               cardTitle="Web Builds Stats"
-              cardSubtitle={`All Builds List (total: ${0})`}
+              cardSubtitle={`All Builds List (total: ${data ? data.size : 0})`}
               content={
                 <HashTable
                   tableHeaderColor="warning"
-                  tableHead={[]}
-                  tableData={[]}
+                  tableHead={head}
+                  tableData={data}
                 />
               }
             />
@@ -78,10 +90,11 @@ export class WebBuildPage extends React.PureComponent { // eslint-disable-line r
 }
 
 const mapStateToProps = createStructuredSelector({
-  webBuildPage: makeSelectWebBuildPage(),
+  builds: makeSelectWebBuild(),
 });
 
 const mapDispatchToProps = (dispatch) => bindActionCreators({
+  fetchBuild: fetchWebBuild,
 }, dispatch);
 
 const withConnect = connect(mapStateToProps, mapDispatchToProps);
@@ -90,7 +103,7 @@ const withReducer = injectReducer({ key: 'webBuildPage', reducer });
 const withSaga = injectSaga({ key: 'webBuildPage', saga });
 
 export default compose(
-  withReducer,
-  withSaga,
   withConnect,
+  withSaga,
+  withReducer,
 )(WebBuildPage);

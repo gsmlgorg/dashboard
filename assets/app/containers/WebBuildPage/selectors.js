@@ -8,6 +8,10 @@ const selectWebBuildPageDomain = (state) => state.get('webBuildPage');
 /**
  * Other specific selectors
  */
+export const makeSelectWebBuild = () => createSelector(
+  selectWebBuildPageDomain,
+  (substate) => substate && substate.get('builds')
+);
 
 
 /**
