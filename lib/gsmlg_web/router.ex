@@ -28,6 +28,7 @@ defmodule GsmlgWeb.Router do
     get "/dashboard", DashboardController, :index
     get "/web_build", WebBuildController, :index
     post "/web_build/upload", WebBuildController, :upload
+    get "/web_build/:hash", WebBuildController, :download
   end
 
   scope "/", GsmlgWeb do

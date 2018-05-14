@@ -4,7 +4,8 @@ defmodule GsmlgWeb.WebBuildController do
   action_fallback GsmlgWeb.FallbackController
 
   def index(conn, _params) do
-    render(conn, "index.json", web_builds: [])
+    builds = Gsmlg.WebBuild.list_build
+    render(conn, "index.json", web_builds: builds)
   end
 
   @doc """
@@ -30,5 +31,10 @@ defmodule GsmlgWeb.WebBuildController do
     render(conn, "show.json", web_build: build)
   end
   def upload(conn, params), do: IO.inspect params
+
+  def download(conn, %{"hash" => hash}) do
+    build = Gsmlg.WebBuild.get_build(hash)
+    send_download(conn, {:file, build.filepath}, filename: build.filename)
+  end
 
 end
