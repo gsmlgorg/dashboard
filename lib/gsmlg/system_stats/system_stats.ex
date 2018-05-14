@@ -35,7 +35,7 @@ defmodule Gsmlg.SystemStats do
     {out2, code2} = System.cmd("cat", ["/proc/uptime"])
     case 0 do
       ^code1 = _ ->
-        [ _, _, _, sec, _, _, _, usec | _] = String.split(out, [" ", ","])
+        [ _, _, _, sec, _, _, _, usec | _] = String.split(out1, [" ", ","])
         String.to_integer(sec) + (String.to_integer(usec) / 1000000)
       ^code2 = _ ->
         now = DateTime.utc_now |> DateTime.to_unix
