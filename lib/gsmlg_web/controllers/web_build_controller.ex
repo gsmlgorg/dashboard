@@ -8,6 +8,8 @@ defmodule GsmlgWeb.WebBuildController do
   end
 
   def upload(conn, %{} = params) do
+    IO.inspect params
+    render(conn, "show.json", web_build: %{id: 1, hash: "38792klaldf"})
   end
 
 end

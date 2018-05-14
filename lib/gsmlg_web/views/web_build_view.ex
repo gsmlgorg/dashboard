@@ -12,6 +12,6 @@ defmodule GsmlgWeb.WebBuildView do
 
   def render("web_build.json", %{web_build: web_build}) do
     %{id: web_build.id,
-      command: web_build.command}
+      hash: web_build.hash}
   end
 end
