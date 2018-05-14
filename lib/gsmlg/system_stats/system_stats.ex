@@ -40,7 +40,7 @@ defmodule Gsmlg.SystemStats do
       ^code2 = _ ->
         now = DateTime.utc_now |> DateTime.to_unix
         [running_time | _ ] = String.split(out2)
-        now - running_time
+        now - String.to_float(running_time)
     end
   end
 
