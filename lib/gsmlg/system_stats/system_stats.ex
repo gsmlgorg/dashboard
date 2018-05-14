@@ -8,22 +8,26 @@ defmodule Gsmlg.SystemStats do
 
   alias Gsmlg.SystemStats.Process
 
-  @doc """
-  Returns the list of processes.
+  def ostype do
+    {out1, code1} = System.cmd("sysctl", ["-n", "kernel.ostype"])
+    {out2, code2} = System.cmd("sysctl", ["-n", "kern.ostype"])
+    case 0 do
+      ^code1 = _ -> out1
+      ^code2 = _ -> out2
+    end |> String.trim
+  end
 
-  ## Examples
-
-      iex> list_processes()
-      [%Process{}, ...]
-
-  """
   def list_processes do
     Process.current
   end
 
   def load_avg do
-    {out, code} = System.cmd("sysctl", ["-n", "vm.loadavg"])
-    out |> String.replace("{ ", "") |> String.replace(" }\n", "") |> String.split
+    {out1, code1} = System.cmd("sysctl", ["-n", "vm.loadavg"])
+    {out2, code2} = System.cmd("cat", ["/proc/loadavg"])
+    case 0 do
+      ^code1 = _ -> out1 |> String.replace("{ ", "") |> String.replace(" }\n", "") |> String.split
+      ^code2 = _ -> out2 |> String.split
+    end
   end
 
   def boot_time do
