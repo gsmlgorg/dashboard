@@ -26,7 +26,7 @@ defmodule Gsmlg.SystemStats do
     {out2, code2} = System.cmd("cat", ["/proc/loadavg"])
     case 0 do
       ^code1 = _ -> out1 |> String.replace("{ ", "") |> String.replace(" }\n", "") |> String.split
-      ^code2 = _ -> out2 |> String.split
+      ^code2 = _ -> out2 |> String.split |> Enum.take(3)
     end
   end
 
