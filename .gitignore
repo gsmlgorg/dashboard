@@ -21,6 +21,7 @@ npm-debug.log
 /priv/static/
 /priv/data/
 /priv/web_build/
+/priv/pid
 
 # Files matching config/*.secret.exs pattern contain sensitive
 # data and you should not commit them into version control.
