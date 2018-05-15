@@ -42,7 +42,7 @@ class ProcessCard extends Component { // eslint-disable-line
           <HashTable
             tableHeaderColor="warning"
             tableHead={head}
-            tableData={processes}
+            tableData={processes && processes.sortBy((p) => Number(p.get('cpu') + Number(p.get('mem'))))}
           />
         }
       />
