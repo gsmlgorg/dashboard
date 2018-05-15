@@ -60,7 +60,7 @@ export class WebBuildPage extends React.PureComponent { // eslint-disable-line r
     const head = ['hash', 'user', 'branch', 'commit', 'created_at'];
     const data = builds && builds.sortBy((b) => b.get('created_at')).map((b) => (
       b.set('created_at', moment.unix(b.get('created_at')).toISOString())
-        .set('commit', b.get('commit').slice(7))
+        .set('commit', b.get('commit').slice(0, 7))
     )).reverse();
     return (
       <div>

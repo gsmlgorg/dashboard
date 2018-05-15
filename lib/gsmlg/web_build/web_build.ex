@@ -15,7 +15,7 @@ defmodule Gsmlg.WebBuild do
     File.mkdir_p!(Path.join(path, "filename=" <> build.assets.filename))
     File.mkdir_p!(Path.join(path, "user="<>build.user))
     File.mkdir_p!(Path.join(path, "created_at=#{created_at}"))
-    Map.put(build, :created_at, created_at)
+    get_build(build.hash)
   end
 
   def get_build(hash) do
