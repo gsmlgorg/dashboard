@@ -34,10 +34,25 @@ stop() {
   echo "Server Stoped!"
 }
 
-if [ -f priv/pid ]
-then
-  stop
-  start
-else
-  start
-fi
+case $1 in
+    start)
+        start
+        ;;
+    stop)
+        stop
+        ;;
+    restart)
+        stop
+        start
+        ;;
+    *)
+      if [ -f priv/pid ]
+      then
+        stop
+        start
+      else
+        start
+      fi
+        ;;
+esac
+
