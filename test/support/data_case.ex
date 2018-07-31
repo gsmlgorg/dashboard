@@ -1,4 +1,4 @@
-defmodule Gsmlg.DataCase do
+defmodule Zdashboard.DataCase do
   @moduledoc """
   This module defines the setup for tests requiring
   access to the application's data layer.
@@ -16,20 +16,20 @@ defmodule Gsmlg.DataCase do
 
   using do
     quote do
-      alias Gsmlg.Repo
+      alias Zdashboard.Repo
 
       import Ecto
       import Ecto.Changeset
       import Ecto.Query
-      import Gsmlg.DataCase
+      import Zdashboard.DataCase
     end
   end
 
   setup tags do
-    :ok = Ecto.Adapters.SQL.Sandbox.checkout(Gsmlg.Repo)
+    :ok = Ecto.Adapters.SQL.Sandbox.checkout(Zdashboard.Repo)
 
     unless tags[:async] do
-      Ecto.Adapters.SQL.Sandbox.mode(Gsmlg.Repo, {:shared, self()})
+      Ecto.Adapters.SQL.Sandbox.mode(Zdashboard.Repo, {:shared, self()})
     end
 
     :ok

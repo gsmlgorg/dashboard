@@ -6,15 +6,15 @@
 use Mix.Config
 
 # General application configuration
-config :gsmlg,
-  ecto_repos: [Gsmlg.Repo]
+config :zdashboard,
+  ecto_repos: [Zdashboard.Repo]
 
 # Configures the endpoint
-config :gsmlg, GsmlgWeb.Endpoint,
+config :zdashboard, ZdashboardWeb.Endpoint,
   url: [host: "localhost"],
   secret_key_base: "v3HZYcVkxKaUUbrg/k7m4Ru3HxUkXAtY9xDPTnnRKa3q8RpekScBEiJuBRDTTsyv",
-  render_errors: [view: GsmlgWeb.ErrorView, accepts: ~w(html json)],
-  pubsub: [name: Gsmlg.PubSub,
+  render_errors: [view: ZdashboardWeb.ErrorView, accepts: ~w(html json)],
+  pubsub: [name: Zdashboard.PubSub,
            adapter: Phoenix.PubSub.PG2]
 
 # Configures Elixir's Logger

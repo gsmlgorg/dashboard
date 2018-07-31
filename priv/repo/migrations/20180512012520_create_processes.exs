@@ -1,4 +1,4 @@
-defmodule Gsmlg.Repo.Migrations.CreateProcesses do
+defmodule Zdashboard.Repo.Migrations.CreateProcesses do
   use Ecto.Migration
 
   def change do

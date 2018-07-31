@@ -1,4 +1,4 @@
 ExUnit.start()
 
-Ecto.Adapters.SQL.Sandbox.mode(Gsmlg.Repo, :manual)
+Ecto.Adapters.SQL.Sandbox.mode(Zdashboard.Repo, :manual)
 

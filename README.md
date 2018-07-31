@@ -1,4 +1,4 @@
-# Gsmlg
+# Zdashboard
 
 To start your Phoenix server:
 
