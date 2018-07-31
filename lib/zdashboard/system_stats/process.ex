@@ -4,9 +4,9 @@ defmodule Zdashboard.SystemStats.Process do
 
   def current do
     System.put_env("LANG", "en_US.UTF-8")
-    {out, code} = System.cmd("ps", ["aux"])
+    {out, _code} = System.cmd("ps", ["aux"])
     # if code != 0, do: System.exit(code)
-    [head | list] = out |> String.trim |> String.split("\n")
+    [_head | list] = out |> String.trim |> String.split("\n")
     processes = list |> Enum.map(fn(proc) ->
       case proc |> String.split do
         [user, pid, cpu, mem, vsz, rss, tt, stat, started, time | command] ->
@@ -14,6 +14,7 @@ defmodule Zdashboard.SystemStats.Process do
         :error -> nil
       end
     end)
+    processes
   end
 
   schema "processes" do

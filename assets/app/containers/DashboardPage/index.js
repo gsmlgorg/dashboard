@@ -100,7 +100,7 @@ export class DashboardPage extends React.PureComponent { // eslint-disable-line 
               icon={Accessibility}
               iconColor="blue"
               title="LoadAvg"
-              description={loadAvg}
+              description={loadAvg && loadAvg.join(' ')}
               statIcon={Update}
               statText=""
             />
