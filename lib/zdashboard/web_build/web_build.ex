@@ -5,7 +5,7 @@ defmodule Zdashboard.WebBuild do
   @filename "package.file"
 
   def add_build(build) do
-    path = Path.join([__DIR__, "..", "..", "..", "priv", "web_build", build.hash])
+    path = Path.join([build_path(), build.hash])
     File.rm_rf(path)
     created_at = DateTime.utc_now |> DateTime.to_unix
     File.mkdir_p!(path)
@@ -19,7 +19,7 @@ defmodule Zdashboard.WebBuild do
   end
 
   def get_build(hash) do
-    path = Path.join([__DIR__, "..", "..", "..", "priv", "web_build", hash])
+    path = Path.join([build_path(), hash])
     if File.exists?(path) do
       build = File.ls!(path) |> Enum.reduce(%{}, fn(n, acc) ->
         case n do
@@ -42,4 +42,12 @@ defmodule Zdashboard.WebBuild do
     File.ls!(path) |> Enum.map(&get_build/1)
   end
 
+  defp build_path do
+    case Keyword.fetch Application.get_env(:zdashboard, ZdashboardWeb.Endpoint), :load_from_system_env do
+      {:ok, true} ->
+        System.get_env("WEB_BUILD_PATH")
+      _ ->
+        Path.join([__DIR__, "..", "..", "..", "priv", "web_build"])
+    end
+  end
 end
