@@ -6,19 +6,20 @@ defmodule Zdashboard.WebBuild do
 
   def add_build(build) do
     path = Path.join([build_path(), build.hash])
-    if (path == build_path()) do
-      return { "error" => "hash can not be empty" }
+    cond do
+      String.length(path) <= String.length(build_path()) -> %{"error" => "hash can not be empty"}
+      String.length(path) <= String.length(build_path()) ->
+        File.rm_rf(path)
+        created_at = DateTime.utc_now |> DateTime.to_unix
+        File.mkdir_p!(path)
+        File.copy(build.assets.path, Path.join(path, @filename))
+        File.mkdir_p!(Path.join(path, "branch="<>build.branch))
+        File.mkdir_p!(Path.join(path, "commit="<>build.commit))
+        File.mkdir_p!(Path.join(path, "filename=" <> build.assets.filename))
+        File.mkdir_p!(Path.join(path, "user="<>build.user))
+        File.mkdir_p!(Path.join(path, "created_at=#{created_at}"))
+        get_build(build.hash)
     end
-    File.rm_rf(path)
-    created_at = DateTime.utc_now |> DateTime.to_unix
-    File.mkdir_p!(path)
-    File.copy(build.assets.path, Path.join(path, @filename))
-    File.mkdir_p!(Path.join(path, "branch="<>build.branch))
-    File.mkdir_p!(Path.join(path, "commit="<>build.commit))
-    File.mkdir_p!(Path.join(path, "filename=" <> build.assets.filename))
-    File.mkdir_p!(Path.join(path, "user="<>build.user))
-    File.mkdir_p!(Path.join(path, "created_at=#{created_at}"))
-    get_build(build.hash)
   end
 
   def get_build(hash) do
