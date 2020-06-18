@@ -6,6 +6,9 @@ defmodule Zdashboard.WebBuild do
 
   def add_build(build) do
     path = Path.join([build_path(), build.hash])
+    if (path == build_path()) do
+      return { "error" => "hash can not be empty" }
+    end
     File.rm_rf(path)
     created_at = DateTime.utc_now |> DateTime.to_unix
     File.mkdir_p!(path)
