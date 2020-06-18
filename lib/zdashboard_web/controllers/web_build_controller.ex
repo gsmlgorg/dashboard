@@ -21,6 +21,7 @@ defmodule ZdashboardWeb.WebBuildController do
     "user" => "gsmlg"
   }
   """
+  def upload(conn, %{"hash" => ""} = params), do: IO.inspect params
   def upload(conn, %{"branch" => branch,
                      "commit" => commit,
                      "user" => user,
