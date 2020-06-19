@@ -8,7 +8,7 @@ defmodule Zdashboard.WebBuild do
     path = Path.join([build_path(), build.hash])
     cond do
       String.length(path) <= String.length(build_path()) -> %{"error" => "hash can not be empty"}
-      String.length(path) <= String.length(build_path()) ->
+      String.length(path) > String.length(build_path()) ->
         File.rm_rf(path)
         created_at = DateTime.utc_now |> DateTime.to_unix
         File.mkdir_p!(path)
