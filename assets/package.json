@@ -256,7 +256,7 @@
     "intl": "1.2.5",
     "invariant": "2.2.4",
     "ip": "1.1.5",
-    "lodash": "~4.17.10",
+    "lodash": "~4.17.13",
     "material-ui": "^1.0.0-beta.46",
     "minimist": "1.2.3",
     "moment": "^2.22.1",
