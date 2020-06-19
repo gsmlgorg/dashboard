@@ -5,17 +5,21 @@ defmodule Gsmlg.WebBuild do
   @filename "package.file"
 
   def add_build(build) do
-    path = Path.join([__DIR__, "..", "..", "..", "priv", "web_build", build.hash])
-    File.rm_rf(path)
-    created_at = DateTime.utc_now |> DateTime.to_unix
-    File.mkdir_p!(path)
-    File.copy(build.assets.path, Path.join(path, @filename))
-    File.mkdir_p!(Path.join(path, "branch="<>build.branch))
-    File.mkdir_p!(Path.join(path, "commit="<>build.commit))
-    File.mkdir_p!(Path.join(path, "filename=" <> build.assets.filename))
-    File.mkdir_p!(Path.join(path, "user="<>build.user))
-    File.mkdir_p!(Path.join(path, "created_at=#{created_at}"))
-    get_build(build.hash)
+    path = Path.join([build_path(), build.hash])
+    cond do
+      String.length(path) <= String.length(build_path()) -> %{"error" => "hash can not be empty"}
+      String.length(path) > String.length(build_path()) ->
+        File.rm_rf(path)
+        created_at = DateTime.utc_now |> DateTime.to_unix
+        File.mkdir_p!(path)
+        File.copy(build.assets.path, Path.join(path, @filename))
+        File.mkdir_p!(Path.join(path, "branch="<>build.branch))
+        File.mkdir_p!(Path.join(path, "commit="<>build.commit))
+        File.mkdir_p!(Path.join(path, "filename=" <> build.assets.filename))
+        File.mkdir_p!(Path.join(path, "user="<>build.user))
+        File.mkdir_p!(Path.join(path, "created_at=#{created_at}"))
+        get_build(build.hash)
+    end
   end
 
   def get_build(hash) do
@@ -42,4 +46,12 @@ defmodule Gsmlg.WebBuild do
     File.ls!(path) |> Enum.map(&get_build/1)
   end
 
+  defp build_path do
+    case Keyword.fetch Application.get_env(:zdashboard, ZdashboardWeb.Endpoint), :load_from_system_env do
+      {:ok, true} ->
+        System.get_env("WEB_BUILD_PATH")
+      _ ->
+        Path.join([__DIR__, "..", "..", "..", "priv", "web_build"])
+    end
+  end
 end

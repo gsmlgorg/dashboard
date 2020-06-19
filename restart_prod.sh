@@ -1,8 +1,8 @@
-#!/bin/sh
+#!/bin/bash
 
 start() {
   echo "Starting service..."
-  MIX_ENV=prod PORT=80 elixir --detached -e "File.write! 'priv/pid', :os.getpid" -S mix phx.server
+  MIX_ENV=prod PORT=10080 elixir --detached -e "File.write! 'priv/pid', :os.getpid" -S mix phx.server
   sleep 5
   pid=pid
   [ -f priv/pid ] && pid=`cat priv/pid`
