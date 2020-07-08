@@ -10,7 +10,7 @@ import { connect } from 'react-redux';
 import { Helmet } from 'react-helmet';
 import { createStructuredSelector } from 'reselect';
 import { bindActionCreators, compose } from 'redux';
-import moment from 'moment';
+import moment from 'dayjs';
 
 // react plugin for creating charts
 import ChartistGraph from 'react-chartist';
@@ -92,7 +92,7 @@ export class DashboardPage extends React.PureComponent { // eslint-disable-line 
               title="Server Boot"
               description={moment.unix(bootTime).fromNow()}
               statIcon={Update}
-              statText={`Now: ${moment.unix(time).toISOString()}`}
+              statText={`Now: ${moment.unix(time).format('YYYY-MM-DD HH:mm:ss Z')}`}
             />
           </ItemGrid>
           <ItemGrid xs={12} sm={6} md={3}>

@@ -10,7 +10,7 @@ import { connect } from 'react-redux';
 import { Helmet } from 'react-helmet';
 import { createStructuredSelector } from 'reselect';
 import { bindActionCreators, compose } from 'redux';
-import moment from 'moment';
+import moment from 'dayjs';
 
 import {
   ContentCopy,
@@ -59,7 +59,7 @@ export class WebBuildPage extends React.PureComponent { // eslint-disable-line r
     const { builds } = this.props;
     const head = ['hash', 'user', 'branch', 'commit', 'created_at'];
     const data = builds && builds.sortBy((b) => b.get('created_at')).map((b) => (
-      b.set('created_at', moment.unix(b.get('created_at')).toISOString())
+      b.set('created_at', moment.unix(b.get('created_at')).format('YYYY-MM-DD HH:mm:ss Z'))
         .set('commit', b.get('commit').slice(0, 7))
     )).reverse();
     return (
