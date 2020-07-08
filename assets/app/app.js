@@ -19,8 +19,6 @@ import 'sanitize.css/sanitize.css';
 import dayjs from 'dayjs';
 import dayjsRelativeTime from 'dayjs/plugin/relativeTime';
 
-dayjs.extend(dayjsRelativeTime);
-
 // Import root app
 import App from 'containers/App';
 
@@ -40,6 +38,8 @@ import { translationMessages } from './i18n';
 
 // Import CSS reset and Global Styles
 import './global-styles';
+
+dayjs.extend(dayjsRelativeTime);
 
 // Create redux store with history
 const initialState = {};

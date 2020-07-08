@@ -26,16 +26,31 @@ defmodule ZdashboardWeb.WebBuildController do
                      "commit" => commit,
                      "user" => user,
                      "assets" => assets,
-                     "hash" => hash} = params) do
+                     "hash" => hash} = _params) do
     web_build = %{commit: commit, hash: hash, user: user, branch: branch, assets: assets}
     build = Zdashboard.WebBuild.add_build(web_build)
     render(conn, "show.json", web_build: build)
   end
   def upload(conn, params), do: IO.inspect params
 
-  def download(conn, %{"hash" => hash}) do
-    build = Zdashboard.WebBuild.get_build(hash)
-    send_download(conn, {:file, build.filepath}, filename: build.filename)
+  def download(conn, %{"hash" => hash} = params) do
+    trigger = Map.get(params, "trigger", "")
+    commit = Map.get(params, "commit", "")
+    IO.inspect params
+    case Zdashboard.WebBuild.get_build(hash, trigger, commit) do
+      {:error, :not_exists_and_build} ->
+        conn
+          |> put_status(:service_unavailable)
+          |> render("not_exists.json", auto_build: true)
+      {:error, :not_exists} ->
+        conn
+          |> put_status(:not_found)
+          |> render("not_exists.json", auto_build: false)
+      %{:filepath => filepath, :filename => filename} ->
+        send_download(conn, {:file, filepath}, filename: filename)
+      _ ->
+        conn |> render(ZdashboardWeb.ErrorView, :"404")
+    end
   end
 
 end

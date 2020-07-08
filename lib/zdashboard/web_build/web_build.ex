@@ -22,7 +22,7 @@ defmodule Zdashboard.WebBuild do
     end
   end
 
-  def get_build(hash) do
+  def get_build(hash, trigger \\ "", commit \\ "") do
     path = Path.join([build_path(), hash])
     if File.exists?(path) do
       build = File.ls!(path) |> Enum.reduce(%{}, fn(n, acc) ->
@@ -37,13 +37,17 @@ defmodule Zdashboard.WebBuild do
       end)
       Map.put(build, :hash, hash)
     else
-      nil
+      case trigger do
+        "build" ->
+          {:error, :not_exists_and_build}
+        _ -> {:error, :not_exists}
+      end
+
     end
   end
 
   def list_build do
-    path = Path.join([__DIR__, "..", "..", "..", "priv", "web_build"])
-    File.ls!(path) |> Enum.map(&get_build/1)
+    File.ls!(build_path()) |> Enum.map(&get_build/1)
   end
 
   defp build_path do

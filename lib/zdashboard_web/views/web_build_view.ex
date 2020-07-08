@@ -17,4 +17,8 @@ defmodule ZdashboardWeb.WebBuildView do
       branch: web_build.branch,
       hash: web_build.hash}
   end
+
+  def render("not_exists.json", %{auto_build: auto_build}) do
+    %{error: "not exists", auto_build: auto_build}
+  end
 end
