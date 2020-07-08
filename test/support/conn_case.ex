@@ -1,4 +1,4 @@
-defmodule GsmlgWeb.ConnCase do
+defmodule ZdashboardWeb.ConnCase do
   @moduledoc """
   This module defines the test case to be used by
   tests that require setting up a connection.
@@ -19,18 +19,18 @@ defmodule GsmlgWeb.ConnCase do
     quote do
       # Import conveniences for testing with connections
       use Phoenix.ConnTest
-      import GsmlgWeb.Router.Helpers
+      import ZdashboardWeb.Router.Helpers
 
       # The default endpoint for testing
-      @endpoint GsmlgWeb.Endpoint
+      @endpoint ZdashboardWeb.Endpoint
     end
   end
 
 
   setup tags do
-    :ok = Ecto.Adapters.SQL.Sandbox.checkout(Gsmlg.Repo)
+    :ok = Ecto.Adapters.SQL.Sandbox.checkout(Zdashboard.Repo)
     unless tags[:async] do
-      Ecto.Adapters.SQL.Sandbox.mode(Gsmlg.Repo, {:shared, self()})
+      Ecto.Adapters.SQL.Sandbox.mode(Zdashboard.Repo, {:shared, self()})
     end
     {:ok, conn: Phoenix.ConnTest.build_conn()}
   end

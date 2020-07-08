@@ -1,4 +1,4 @@
-defmodule GsmlgWeb.ChannelCase do
+defmodule ZdashboardWeb.ChannelCase do
   @moduledoc """
   This module defines the test case to be used by
   channel tests.
@@ -21,15 +21,15 @@ defmodule GsmlgWeb.ChannelCase do
       use Phoenix.ChannelTest
 
       # The default endpoint for testing
-      @endpoint GsmlgWeb.Endpoint
+      @endpoint ZdashboardWeb.Endpoint
     end
   end
 
 
   setup tags do
-    :ok = Ecto.Adapters.SQL.Sandbox.checkout(Gsmlg.Repo)
+    :ok = Ecto.Adapters.SQL.Sandbox.checkout(Zdashboard.Repo)
     unless tags[:async] do
-      Ecto.Adapters.SQL.Sandbox.mode(Gsmlg.Repo, {:shared, self()})
+      Ecto.Adapters.SQL.Sandbox.mode(Zdashboard.Repo, {:shared, self()})
     end
     :ok
   end

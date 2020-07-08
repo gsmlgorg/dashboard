@@ -1,5 +1,7 @@
 #!/bin/bash
 
+export WEB_BUILD_PATH=/var/www/dashboard/priv/web_build
+
 start() {
   echo "Starting service..."
   MIX_ENV=prod PORT=80 elixir --detached -e "File.write! 'priv/pid', :os.getpid" -S mix phx.server
@@ -34,10 +36,25 @@ stop() {
   echo "Server Stoped!"
 }
 
-if [ -f priv/pid ]
-then
-  stop
-  start
-else
-  start
-fi
+case $1 in
+    start)
+        start
+        ;;
+    stop)
+        stop
+        ;;
+    restart)
+        stop
+        start
+        ;;
+    *)
+      if [ -f priv/pid ]
+      then
+        stop
+        start
+      else
+        start
+      fi
+        ;;
+esac
+

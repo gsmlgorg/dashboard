@@ -24,6 +24,4 @@ const makeSelectWebBuildPage = () => createSelector(
 );
 
 export default makeSelectWebBuildPage;
-export {
-  selectWebBuildPageDomain,
-};
+export { selectWebBuildPageDomain };

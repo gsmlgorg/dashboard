@@ -57,7 +57,7 @@ class HomePage extends React.PureComponent { // eslint-disable-line react/prefer
       <div className={classes.wrapper}>
         <Sidebar
           routes={dashboardRoutes}
-          logoText="GSMLG"
+          logoText="DDI Web"
           logo={logo}
           image={image}
           handleDrawerToggle={this.handleDrawerToggle}
