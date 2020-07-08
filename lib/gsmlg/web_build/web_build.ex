@@ -47,11 +47,6 @@ defmodule Gsmlg.WebBuild do
   end
 
   defp build_path do
-    case Keyword.fetch Application.get_env(:zdashboard, ZdashboardWeb.Endpoint), :load_from_system_env do
-      {:ok, true} ->
-        System.get_env("WEB_BUILD_PATH")
-      _ ->
-        Path.join([__DIR__, "..", "..", "..", "priv", "web_build"])
-    end
+    Path.join([__DIR__, "..", "..", "..", "priv", "web_build"])
   end
 end
